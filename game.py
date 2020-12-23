@@ -32,8 +32,12 @@ def spawn(array, color):
 
 def comparer(a1,a2):
     if (((a1[0] < 1) or (a1[0] > 10)) or ((a1[1] < 1) or (a1[1] > 10))):
-        pass 
-    if (a1[0] == a2[0]) and (a1[1] == a2[1]):
+        run = False 
+    a1[0] *= 50
+    a1[1] *= 50
+    a2[0] *= 50
+    a2[1] *= 50
+    if (a1[0] % a2[0]<50) and (a1[1] % a2[1] < 50):
         return True
 
 # snake
@@ -66,21 +70,27 @@ while run :
             i[0] -=1
         if direction=="RIGHT":
             i[0] += 1 
+        """ 
+        if ((i[0] > 10) or (i[0]<1)):
+            run = False
+        if ((i[1] > 10) or (i[1]<1)):
+            run = False 
+        """
     pygame.display.update()
         
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
         if event.type == pygame.KEYDOWN:
-            if event.key ==  pygame.K_LEFT:
+            if ((event.key ==  pygame.K_LEFT) and (not(direction=="RIGHT"))):
                 direction = "LEFT"
-            if event.key == pygame.K_RIGHT:
+            if ((event.key == pygame.K_RIGHT) and (not(direction=="LEFT"))):
                 direction = "RIGHT"
-            if event.key == pygame.K_DOWN:
+            if ((event.key == pygame.K_DOWN) and (not(direction=="UP"))):
                 direction = "DOWN"
-            if event.key == pygame.K_UP:
+            if ((event.key == pygame.K_UP)) and (not(direction=="DOWN")):
                 direction = "UP"
             
     
 
-pygame.quit()
+pygame.quit()  
